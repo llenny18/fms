@@ -7,7 +7,7 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Tables - Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit</title>
+     <?php  include("./title.php");?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -79,47 +79,22 @@
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
-
-    <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
-      <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">       
-          <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html">
-              <h3 class="brand-text">FMS</h3></a></li>
-          <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
-        </ul>
-      </div>
-      <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-          <li class=" nav-item"><a href="index.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
-          </li>
-          <li class=" nav-item"><a href="charts.html"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Sales and Report</span></a>
-          </li>
-          <li class=" nav-item"><a href="icons.html"><i class="ft-droplet"></i><span class="menu-title" data-i18n="">Costing</span></a>
-          </li>
-            <li class=" nav-item" ><a href="tables.html"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Financials</span></a>
-            </li>
-            <li class="active"><a href="tables.html"><i class="ft-bold"></i><span class="menu-title" data-i18n="">Projects</span></a>
-            </li>
-          <li class=" nav-item"><a href="form-elements.html"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Clients</span></a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <?php include("./side.php"); ?>
 
     <div class="app-content content">
       <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">Projects</h3>
+            <h3 class="content-header-title">Cash Flows</h3>
           </div>
           <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
               <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a>
+                  <li class="breadcrumb-item"><a href="index.php">Home</a>
                   </li>
-                  <li class="breadcrumb-item active">Projects
+                  <li class="breadcrumb-item active">Cash Flows
                   </li>
                 </ol>
               </div>
@@ -132,7 +107,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">Projects<a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Project</a></h4>
+				<h4 class="card-title">Cash Flows<a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Cash Flow</a></h4>
 				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 				<div class="heading-elements">
 					<ul class="list-inline mb-0">
@@ -150,21 +125,20 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Project Name</th>
-								<th scope="col">Project Description</th>
-								<th scope="col">Project Price</th>
+								<th scope="col">Decription</th>
+								<th scope="col">Investment</th>
+								<th scope="col">Cash Flow Type</th>
+								<th scope="col">Category</th>
+								<th scope="col">Tax Category</th>
+								<th scope="col">Notes</th>
+								<th scope="col">Date Created</th>
+								<th scope="col">Income ID</th>
+								<th scope="col">Financial ID</th>
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Plywood </td>
-								<td>Plywood is a composite material manufactured from thin layers, or "plies", of wood veneer that are glued together with adjacent layers, having their wood grain rotated up to 90° to one another. </td>
-
-								<td>PHP 545.45 </td>
-								<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>
-							</tr>
+							<?php cashflows($conn); ?>
 							
 						</tbody>
 					</table>

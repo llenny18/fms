@@ -7,7 +7,7 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Basic Form Elements - Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit</title>
+    <?php  include("./title.php");?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -80,31 +80,7 @@
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
-    <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
-      <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">       
-          <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html">
-              <h3 class="brand-text">FMS</h3></a></li>
-          <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
-        </ul>
-      </div>
-      <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-          <li class="active"><a href="index.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
-          </li>
-          <li class=" nav-item"><a href="charts.html"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Sales and Report</span></a>
-          </li>
-          <li class=" nav-item"><a href="icons.html"><i class="ft-droplet"></i><span class="menu-title" data-i18n="">Costing</span></a>
-          </li>
-            <li class=" nav-item"><a href="tables.html"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Financials</span></a>
-            </li>
-            <li class=" nav-item"><a href="tables.html"><i class="ft-bold"></i><span class="menu-title" data-i18n="">Projects</span></a>
-            </li>
-          <li class=" nav-item"><a href="form-elements.html"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Clients</span></a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <?php include("./side.php"); ?>
 
     <div class="app-content content">
       <div class="content-wrapper">
@@ -117,7 +93,7 @@
             <div class="breadcrumbs-top float-md-right">
               <div class="breadcrumb-wrapper mr-1">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a>
+                  <li class="breadcrumb-item"><a href="index.php">Home</a>
                   </li>
                   <li class="breadcrumb-item active">Form Elements
                   </li>
