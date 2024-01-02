@@ -133,7 +133,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php clients($conn); ?>
+							<?php 
+              foreach ($selectedClients as $client) {
+            echo "<tr>";
+            echo "<td>{$client->clientID}</td>";
+            echo "<td>{$client->clientFullName}</td>";
+            echo "<td>{$client->clientContact}</td>";
+            echo "<td>{$client->clientEmail}</td>";
+            echo "<td>{$client->clientAddress}</td>";
+            echo "<td>{$client->clientAge}</td>";
+            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo "</tr>";
+        } ?>
 							
 						</tbody>
 					</table>

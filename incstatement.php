@@ -135,8 +135,21 @@
 							</tr>
 						</thead>
 						<tbody>
-				
-							<?php incomes($conn); ?>
+            <?php
+            foreach ($selectedEntries as $entry) {
+            echo "<tr>";
+            echo "<td>{$entry->is_id}</td>";
+            echo "<td>{$entry->revenue}</td>";
+            echo "<td>{$entry->cost_of_goods_sold}</td>";
+            echo "<td>{$entry->operating_expenses}</td>";
+            echo "<td>{$entry->other_expenses}</td>";
+            echo "<td>{$entry->taxes}</td>";
+            echo "<td>{$entry->fi_id}</td>";
+
+            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo "</tr>";
+        }
+        ?>
        
 							
 						</tbody>

@@ -138,8 +138,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php cashflows($conn); ?>
-							
+            <?php
+        foreach ($cashFlow as $entry) {
+            echo "<tr>";
+            echo "<td>{$entry->cf_id}</td>";
+            echo "<td>{$entry->description}</td>";
+            echo "<td>{$entry->investment}</td>";
+            echo "<td>{$entry->cash_flow_type}</td>";
+            echo "<td>{$entry->category}</td>";
+            echo "<td>{$entry->tax_category}</td>";
+            echo "<td>{$entry->notes}</td>";
+            echo "<td>{$entry->created_at}</td>";
+            echo "<td>{$entry->inc_ID}</td>";
+            echo "<td>{$entry->f_id}</td>";
+            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo "</tr>";
+        }
+        ?>
 						</tbody>
 					</table>
 				</div>
