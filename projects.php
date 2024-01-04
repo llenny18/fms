@@ -138,7 +138,7 @@
             echo "<td>{$project->projectName}</td>";
             echo "<td>{$project->projectDescription}</td>";
             echo "<td>{$project->projectPrice}</td>";
-            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo '<td><a href="editproj.php?pid='.$project->projectID.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
             echo "</tr>";
         } ?>
 							

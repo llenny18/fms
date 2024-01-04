@@ -146,7 +146,7 @@
             echo "<td>{$entry->taxes}</td>";
             echo "<td>{$entry->fi_id}</td>";
 
-            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo '<td><a href="editinc.php?incid='.$entry->is_id.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
             echo "</tr>";
         }
         ?>

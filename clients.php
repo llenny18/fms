@@ -142,7 +142,7 @@
             echo "<td>{$client->clientEmail}</td>";
             echo "<td>{$client->clientAddress}</td>";
             echo "<td>{$client->clientAge}</td>";
-            echo '<td><a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
+            echo '<td><a href="editclient.php?cid='.$client->clientID.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
             echo "</tr>";
         } ?>
 							

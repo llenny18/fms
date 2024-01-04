@@ -7,7 +7,55 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-     <?php  include("./title.php");?>
+    <?php  include("./title.php");
+    
+    
+class IncomeStatementz
+{
+    public $is_id;
+    public $revenue;
+    public $cost_of_goods_sold;
+    public $operating_expenses;
+    public $other_expenses;
+    public $taxes;
+    public $createdBY;
+    public $fi_id;
+
+    public function __construct($row)
+    {
+        $this->is_id = $row['is_id'];
+        $this->revenue = $row['revenue'];
+        $this->cost_of_goods_sold = $row['cost_of_goods_sold'];
+        $this->operating_expenses = $row['operating_expenses'];
+        $this->other_expenses = $row['other_expenses'];
+        $this->taxes = $row['taxes'];
+        $this->createdBY = $row['createdBY'];
+        $this->fi_id = $row['fi_id'];
+    }
+}
+
+function getIncomeStatementById($conn, $is_id)
+{
+    $incomeStatements = [];
+
+    $sql = "SELECT * FROM income_statement WHERE is_id = 1";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $incomeStatements[] = new IncomeStatementz($row);
+        }
+    }
+
+    return $incomeStatements;
+}
+
+// Example usage with a specific is_id (replace with your desired is_id)
+$is_id = $_GET['incid'];
+$selectedIncomeStatements = getIncomeStatementById($conn, $is_id);
+
+    
+    ?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -41,7 +89,7 @@
                     <form>
                       <div class="input-group search-box">
                         <div class="position-relative has-icon-right full-width">
-                          <input class="form-control" id="search" type="text" placeholder="Search here...">
+                          <input required class="form-control" id="search" type="text" placeholder="Search here...">
                           <div class="form-control-position navbar-search-close"><i class="ft-x">   </i></div>
                         </div>
                       </div>
@@ -79,6 +127,7 @@
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
+
     <?php include("./side.php"); ?>
 
     <div class="app-content content">
@@ -86,7 +135,7 @@
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">Cash Flows</h3>
+            <h3 class="content-header-title">Edit Income Statement Data</h3>
           </div>
           <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
@@ -94,75 +143,74 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.php">Home</a>
                   </li>
-                  <li class="breadcrumb-item active">Cash Flows
+                  <li class="breadcrumb-item active">Edit Income Statement
                   </li>
                 </ol>
               </div>
             </div>
           </div>
         </div>
-        <div class="content-body">
-<!-- Table head options start -->
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-header">
-				<h4 class="card-title">Cash Flows<a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Cash Flow</a></h4>
-				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-				<div class="heading-elements">
-					<ul class="list-inline mb-0">
-						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-						<li><a data-action="close"><i class="ft-x"></i></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="card-content collapse show">
-				
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Decription</th>
-								<th scope="col">Investment</th>
-								<th scope="col">Cash Flow Type</th>
-								<th scope="col">Category</th>
-								<th scope="col">Tax Category</th>
-								<th scope="col">Notes</th>
-								<th scope="col">Date Created</th>
-								<th scope="col">Income ID</th>
-								<th scope="col">Financial ID</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-            <?php
-        foreach ($cashFlow as $entry) {
-            echo "<tr>";
-            echo "<td>{$entry->cf_id}</td>";
-            echo "<td>{$entry->description}</td>";
-            echo "<td>{$entry->investment}</td>";
-            echo "<td>{$entry->cash_flow_type}</td>";
-            echo "<td>{$entry->category}</td>";
-            echo "<td>{$entry->tax_category}</td>";
-            echo "<td>{$entry->notes}</td>";
-            echo "<td>{$entry->created_at}</td>";
-            echo "<td>{$entry->inc_ID}</td>";
-            echo "<td>{$entry->f_id}</td>";
-            echo '<td><a href="editcflow.php?cfid='.$entry->cf_id.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
-            echo "</tr>";
-        }
-        ?>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Table head options end -->
+        <div class="content-body"><!-- Basic Inputs start -->
+<section class="basic-inputs">
+  <div class="row match-height">
+      <div class="col-xl-12 col-lg-6 col-md-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Edit Income Statement by ID</h4>
+              </div>
+              <div class="card-block">
+                  <div class="card-body">
+                      <form>
+                        <?php foreach ($selectedIncomeStatements as $inc) { ?>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Income Statement ID</label>
+      <input required type="text" readonly class="form-control" value="<?= $inc->is_id  ?>" id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Financial ID</label>
+      <input required type="email" class="form-control" id="inputPassword4" value="<?= $inc->fi_id  ?>" placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Revenue</label>
+    <input required type="text" class="form-control" id="inputAddress"  value="<?= $inc->revenue  ?>" placeholder="Full Name">
+  </div>
+ 
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Cost of Goods Sold</label>
+      <input required type="text"  class="form-control" value="<?= $inc->cost_of_goods_sold ?>" id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Operating Expenses</label>
+      <input required type="email" class="form-control" id="inputPassword4" value="<?= $inc->operating_expenses  ?>" placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Other Expenses</label>
+    <input required type="text" class="form-control" id="inputAddress"  value="<?= $inc->other_expenses  ?>" placeholder="Full Name">
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input required class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        I Confirm all the details are correct
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+  <?php } ?>
+
+</form>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+</section>
+<!-- Basic Inputs end -->
 
         </div>
       </div>
@@ -184,6 +232,7 @@
     <script src="theme-assets/js/core/app-lite.js" type="text/javascript"></script>
     <!-- END CHAMELEON  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
+    <script src="theme-assets/vendors/js/forms/tags/form-field.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
   </body>
 </html>
