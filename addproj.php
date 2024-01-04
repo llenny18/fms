@@ -19,17 +19,15 @@ if(isset($_POST['pupdate'])){
   $newProjectPrice =  $_POST['pprice'];
 
   // SQL update query
-  $sql = "UPDATE projects 
-        SET projectName = '$newProjectName', 
-            projectDescription = '$newProjectDescription', 
-            projectPrice = '$newProjectPrice '
-          
-        WHERE projectID = $projectIDToUpdate";
+  $sql = "INSERT INTO `projects` (`projectID`, `projectName`, `projectDescription`, `projectPrice`, `createdBY`) 
+  VALUES ($projectIDToUpdate,'$newProjectName', 
+            '$newProjectDescription', 
+            '$newProjectPrice ', 1)";
 
   if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('Record updated successfully');window.location.replace('projects.php');</script>";
+    echo "<script>alert('Record Added successfully');window.location.replace('projects.php');</script>";
   } else {
-    echo "<script>alert('Error updating record: " . $conn->error."')</script>";
+    echo "<script>alert('Error adding record: " . $conn->error."')</script>";
   }
 }
 
@@ -163,7 +161,7 @@ if(isset($_POST['pupdate'])){
                           </div>
                           <div class="form-group col-md-6">
                             <label for="input">Date Created</label>
-                            <input required readonly type="text" name="pdate" class="form-control" id="input"  placeholder="email">
+                            <input required readonly type="text" name="pdate" class="form-control" id="input"  placeholder="Today">
                           </div>
                         </div>
                         <div class="form-group">

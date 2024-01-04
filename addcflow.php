@@ -20,23 +20,21 @@ $newNotes = $_POST['chnotes'];
 $newCategory = $_POST['chcat'];
 $newTaxCategory = $_POST['chtax'];
 $newFID = $_POST['chfid'];
+$chiid = $_POST['chiid'];
 
 
 // SQL update query
-$sql = "UPDATE cashflow 
-        SET description = '$newDescription', 
-            investment = $newInvestment, 
-            cash_flow_type = '$newCashFlowType', 
-            category = '$newCategory', 
-            tax_category = '$newTaxCategory', 
-            notes = '$newNotes', 
-            f_id = '$newFID'
-        WHERE cf_id = $cf_idToUpdate";
+$sql = "INSERT INTO `cashflow` (`cf_id`, `description`, `investment`, `cash_flow_type`, `category`, `adminCreator`, `tax_category`, `notes`,  `inc_ID`, `f_id`) 
+VALUES ( $cf_idToUpdate,'$newDescription', $newInvestment, '$newCashFlowType', 
+            '$newCategory', 1 ,
+            '$newTaxCategory', 
+            '$newNotes', $chiid,
+            '$newFID')";
 
         if ($conn->query($sql) === TRUE) {
-      echo "<script>alert('Record updated successfully');window.location.replace('cashflow.php');</script>";
+      echo "<script>alert('Record Added successfully');window.location.replace('cashflow.php');</script>";
     } else {
-      echo "<script>alert('Error updating record: " . $conn->error . "')</script>";
+      echo "<script>alert('Error adding record: " . $conn->error . "')</script>";
     }
   }
     
@@ -154,7 +152,7 @@ $sql = "UPDATE cashflow
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Income ID</label>
-      <input required type="text" name="chiid" readonly class="form-control" id="inputPassword4"  placeholder="email">
+      <input required type="text" name="chiid" value="1" class="form-control" id="inputPassword4"  placeholder="email">
     </div>
   </div>
   <div class="form-group">
@@ -196,11 +194,11 @@ $sql = "UPDATE cashflow
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Date Created</label>
-      <input required type="text" readonly name="chdate" class="form-control"  id="inputEmail4" placeholder="0">
+      <input required type="text" readonly value="Today" name="chdate" class="form-control"  id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Financial ID</label>
-      <input required type="text"  name="chfid" readonly class="form-control" id="inputPassword4"  placeholder="email">
+      <input required type="text" value="G2F3JH1G2V3JH12"  name="chfid" readonly class="form-control" id="inputPassword4"  placeholder="email">
     </div>
   </div>
   <div class="form-group">

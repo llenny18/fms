@@ -22,18 +22,17 @@ $newOtherExpenses = $_POST['incother'];
 $newFiID = $_POST['incfid'];
 
 // SQL update query
-$sql = "UPDATE income_statement 
-        SET revenue = $newRevenue, 
-            cost_of_goods_sold = $newCostOfGoodsSold, 
-            operating_expenses = $newOperatingExpenses, 
-            other_expenses = $newOtherExpenses, 
-            fi_id = '$newFiID'
-        WHERE is_id = $is_idToUpdate";
+$sql = "INSERT INTO `income_statement` (`is_id`, `revenue`, `cost_of_goods_sold`, `operating_expenses`, `other_expenses`, `taxes`, `createdBY`, `fi_id`) 
+VALUES ($is_idToUpdate, $newRevenue, 
+            $newCostOfGoodsSold, 
+            $newOperatingExpenses, 
+            $newOtherExpenses, 200, 1,
+            '$newFiID')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<script>alert('Record updated successfully');window.location.replace('incstatement.php');</script>";
+    echo "<script>alert('Record Added successfully');window.location.replace('incstatement.php');</script>";
   } else {
-    echo "<script>alert('Error updating record: " . $conn->error."')</script>";
+    echo "<script>alert('Error adding record: " . $conn->error."')</script>";
   }
 }
 
@@ -152,7 +151,7 @@ if ($conn->query($sql) === TRUE) {
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Financial ID</label>
-      <input required type="text" readonly name="incfid" class="form-control" id="inputPassword4" placeholder="email">
+      <input required type="text" value="G2F3JH1G2V3JH12" readonly name="incfid" class="form-control" id="inputPassword4" placeholder="email">
     </div>
   </div>
   <div class="form-group">

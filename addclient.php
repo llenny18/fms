@@ -20,19 +20,18 @@
     $newClientAge = $_POST['cage'];
 
     // SQL update query
-    $sql = "UPDATE clients 
-        SET clientFullName = '$newClientFullName', 
-            clientContact = '$newClientContact', 
-            clientEmail = '$newClientEmail', 
-            clientAddress = '$newClientAddress', 
-            clientAge = $newClientAge 
-        WHERE clientID = $clientIDToUpdate";
+    $sql = "INSERT INTO `clients` (`clientID`, `clientFullName`, `clientContact`, `clientEmail`, `clientAddress`, `clientAge`) 
+    VALUES ($clientIDToUpdate ,'$newClientFullName', 
+           '$newClientContact', 
+            '$newClientEmail', 
+            '$newClientAddress', 
+            $newClientAge) ";
 
 
     if ($conn->query($sql) === TRUE) {
-      echo "<script>alert('Record updated successfully');window.location.replace('clients.php');</script>";
+      echo "<script>alert('Record Added successfully');window.location.replace('clients.php');</script>";
     } else {
-      echo "<script>alert('Error updating record: " . $conn->error . "')</script>";
+      echo "<script>alert('Error adding record: " . $conn->error . "')</script>";
     }
   }
 

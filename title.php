@@ -335,7 +335,17 @@ $selectedClients = $result['selectedClients'];
 $totalAge = $result['totalAge'];
 
 
+function generateRandomString($length) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
 
+    for ($i = 0; $i < $length; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $randomString .= $characters[$index];
+    }
+
+    return $randomString;
+}
 
 
 
