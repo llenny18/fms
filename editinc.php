@@ -54,6 +54,33 @@ function getIncomeStatementById($conn, $is_id)
 $is_id = $_GET['incid'];
 $selectedIncomeStatements = getIncomeStatementById($conn, $is_id);
 
+if(isset($_POST['incupdate'])){
+
+
+// Example data for the update
+$is_idToUpdate = $_POST['incid'];  // Replace with the specific is_id you want to update
+$newRevenue = $_POST['increvenue'];
+$newCostOfGoodsSold = $_POST['inccogs'];
+$newOperatingExpenses = $_POST['incoex'];
+$newOtherExpenses = $_POST['incother'];
+$newFiID = $_POST['incfid'];
+
+// SQL update query
+$sql = "UPDATE income_statement 
+        SET revenue = $newRevenue, 
+            cost_of_goods_sold = $newCostOfGoodsSold, 
+            operating_expenses = $newOperatingExpenses, 
+            other_expenses = $newOtherExpenses, 
+            fi_id = '$newFiID'
+        WHERE is_id = $is_idToUpdate";
+
+if ($conn->query($sql) === TRUE) {
+    echo "<script>alert('Record updated successfully');window.location.replace('incstatement.php');</script>";
+  } else {
+    echo "<script>alert('Error updating record: " . $conn->error."')</script>";
+  }
+}
+
     
     ?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
@@ -160,36 +187,36 @@ $selectedIncomeStatements = getIncomeStatementById($conn, $is_id);
               </div>
               <div class="card-block">
                   <div class="card-body">
-                      <form>
+                      <form method="post">
                         <?php foreach ($selectedIncomeStatements as $inc) { ?>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Income Statement ID</label>
-      <input required type="text" readonly class="form-control" value="<?= $inc->is_id  ?>" id="inputEmail4" placeholder="0">
+      <input required type="text" name="incid" readonly class="form-control" value="<?= $inc->is_id  ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Financial ID</label>
-      <input required type="email" class="form-control" id="inputPassword4" value="<?= $inc->fi_id  ?>" placeholder="email">
+      <input required type="text" readonly name="incfid" class="form-control" id="inputPassword4" value="<?= $inc->fi_id  ?>" placeholder="email">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress">Revenue</label>
-    <input required type="text" class="form-control" id="inputAddress"  value="<?= $inc->revenue  ?>" placeholder="Full Name">
+    <input required type="text" name="increvenue" class="form-control" id="inputAddress"  value="<?= $inc->revenue  ?>" placeholder="Full Name">
   </div>
  
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Cost of Goods Sold</label>
-      <input required type="text"  class="form-control" value="<?= $inc->cost_of_goods_sold ?>" id="inputEmail4" placeholder="0">
+      <input required type="text"  name="inccogs" class="form-control" value="<?= $inc->cost_of_goods_sold ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Operating Expenses</label>
-      <input required type="email" class="form-control" id="inputPassword4" value="<?= $inc->operating_expenses  ?>" placeholder="email">
+      <input required type="text" name="incoex" class="form-control" id="inputPassword4" value="<?= $inc->operating_expenses  ?>" placeholder="email">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress">Other Expenses</label>
-    <input required type="text" class="form-control" id="inputAddress"  value="<?= $inc->other_expenses  ?>" placeholder="Full Name">
+    <input required type="text" name="incother" class="form-control" id="inputAddress"  value="<?= $inc->other_expenses  ?>" placeholder="Full Name">
   </div>
   <div class="form-group">
     <div class="form-check">
@@ -199,7 +226,7 @@ $selectedIncomeStatements = getIncomeStatementById($conn, $is_id);
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
+  <button type="submit"  name="incupdate" class="btn btn-primary">Sign in</button>
   <?php } ?>
 
 </form>

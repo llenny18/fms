@@ -59,8 +59,36 @@ function getCashflowById($conn, $cf_id)
 // Example usage with a specific cf_id (replace with your desired cf_id)
 $cf_id = $_GET['cfid'];
 $selectedCashflows = getCashflowById($conn, $cf_id);
+ 
+if (isset($_POST['chupdate'])) {
+
+$cf_idToUpdate = $_POST['chid'];  // Replace with the specific cf_id you want to update
+$newDescription = $_POST['chdesc'];
+$newInvestment = $_POST['chinv'];
+$newCashFlowType = $_POST['chtype'];
+$newNotes = $_POST['chnotes'];
+$newCategory = $_POST['chcat'];
+$newTaxCategory = $_POST['chtax'];
+$newFID = $_POST['chfid'];
 
 
+// SQL update query
+$sql = "UPDATE cashflow 
+        SET description = '$newDescription', 
+            investment = $newInvestment, 
+            cash_flow_type = '$newCashFlowType', 
+            category = '$newCategory', 
+            tax_category = '$newTaxCategory', 
+            notes = '$newNotes', 
+            f_id = '$newFID'
+        WHERE cf_id = $cf_idToUpdate";
+
+        if ($conn->query($sql) === TRUE) {
+      echo "<script>alert('Record updated successfully');window.location.replace('cashflow.php');</script>";
+    } else {
+      echo "<script>alert('Error updating record: " . $conn->error . "')</script>";
+    }
+  }
     
     ?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
@@ -167,52 +195,62 @@ $selectedCashflows = getCashflowById($conn, $cf_id);
               </div>
               <div class="card-block">
                   <div class="card-body">
-                      <form>
+                      <form method="post">
                         <?php foreach ($selectedCashflows as $cflows) { ?>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">ID</label>
-      <input required type="text" readonly class="form-control" value="<?= $cflows->cf_id  ?>" id="inputEmail4" placeholder="0">
+      <input required type="text" name="chid" readonly class="form-control" value="<?= $cflows->cf_id  ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Income ID</label>
-      <input required type="text" readonly class="form-control" id="inputPassword4" value="<?= $cflows->inc_ID  ?>" placeholder="email">
+      <input required type="text" name="chiid" readonly class="form-control" id="inputPassword4" value="<?= $cflows->inc_ID  ?>" placeholder="email">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress">Description</label>
-    <input required type="text" class="form-control" id="inputAddress"  value="<?= $cflows->description  ?>" placeholder="Full Name">
+    <input required type="text" name="chdesc" class="form-control" id="inputAddress"  value="<?= $cflows->description  ?>" placeholder="Full Name">
   </div>
  
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Investment</label>
-      <input required type="text"  class="form-control" value="<?= $cflows->investment ?>" id="inputEmail4" placeholder="0">
+      <input required type="text"  name="chinv" class="form-control" value="<?= $cflows->investment ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Cash Flow Type</label>
-      <input required type="text" class="form-control" id="inputPassword4" value="<?= $cflows->cash_flow_type  ?>" placeholder="email">
+      <select  name="chtype" class="form-control"  aria-label="Default select example">
+  <option value="Operating" <?php if($cflows->cash_flow_type=="Operating"){ echo " selected "; }  ?>>Operating</option>
+  <option value="Investing" <?php if($cflows->cash_flow_type=="Investing"){ echo " selected "; }  ?>>Investing</option>
+  <option value="Financing" <?php if($cflows->cash_flow_type=="Financing"){ echo " selected "; }  ?>>Financing</option>
+</select>
+   
     </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="inputAddress">Tax Cetgory</label>
+    <input required type="text" name="chtax" class="form-control" id="inputAddress"  value="<?= $cflows->tax_category  ?>" placeholder="Full Name">
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Category</label>
-      <input required type="text"  class="form-control" value="<?= $cflows->category ?>" id="inputEmail4" placeholder="0">
+      <input required type="text" name="chcat"  class="form-control" value="<?= $cflows->category ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Notes</label>
-      <input required type="text" class="form-control" id="inputPassword4" value="<?= $cflows->notes  ?>" placeholder="email">
+      <input required type="text"  name="chnotes"  class="form-control" id="inputPassword4" value="<?= $cflows->notes  ?>" placeholder="email">
     </div>
   </div>
   
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Date Created</label>
-      <input required type="text"  class="form-control" value="<?= $cflows->created_at ?>" id="inputEmail4" placeholder="0">
+      <input required type="text" readonly name="chdate" class="form-control" value="<?= $cflows->created_at ?>" id="inputEmail4" placeholder="0">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Financial ID</label>
-      <input required type="text" class="form-control" id="inputPassword4" value="<?= $cflows->f_id  ?>" placeholder="email">
+      <input required type="text"  name="chfid" readonly class="form-control" id="inputPassword4" value="<?= $cflows->f_id  ?>" placeholder="email">
     </div>
   </div>
   <div class="form-group">
@@ -223,7 +261,7 @@ $selectedCashflows = getCashflowById($conn, $cf_id);
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
+  <button type="submit" name="chupdate" class="btn btn-primary">Sign in</button>
   <?php } ?>
 
 </form>
