@@ -107,7 +107,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">Income Statements<a href="http://" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Income Statement</a></h4>
+				<h4 class="card-title">Income Statements<a href="addinc.php" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Income Statement</a></h4>
 				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 				<div class="heading-elements">
 					<ul class="list-inline mb-0">

@@ -7,7 +7,40 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <?php  include("./title.php");?>
+    <?php  include("./title.php");
+    
+
+if (isset($_POST['chupdate'])) {
+
+$cf_idToUpdate = $_POST['chid'];  // Replace with the specific cf_id you want to update
+$newDescription = $_POST['chdesc'];
+$newInvestment = $_POST['chinv'];
+$newCashFlowType = $_POST['chtype'];
+$newNotes = $_POST['chnotes'];
+$newCategory = $_POST['chcat'];
+$newTaxCategory = $_POST['chtax'];
+$newFID = $_POST['chfid'];
+
+
+// SQL update query
+$sql = "UPDATE cashflow 
+        SET description = '$newDescription', 
+            investment = $newInvestment, 
+            cash_flow_type = '$newCashFlowType', 
+            category = '$newCategory', 
+            tax_category = '$newTaxCategory', 
+            notes = '$newNotes', 
+            f_id = '$newFID'
+        WHERE cf_id = $cf_idToUpdate";
+
+        if ($conn->query($sql) === TRUE) {
+      echo "<script>alert('Record updated successfully');window.location.replace('cashflow.php');</script>";
+    } else {
+      echo "<script>alert('Error updating record: " . $conn->error . "')</script>";
+    }
+  }
+    
+    ?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -41,7 +74,7 @@
                     <form>
                       <div class="input-group search-box">
                         <div class="position-relative has-icon-right full-width">
-                          <input class="form-control" id="search" type="text" placeholder="Search here...">
+                          <input required class="form-control" id="search" type="text" placeholder="Search here...">
                           <div class="form-control-position navbar-search-close"><i class="ft-x">   </i></div>
                         </div>
                       </div>
@@ -79,6 +112,7 @@
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
+
     <?php include("./side.php"); ?>
 
     <div class="app-content content">
@@ -86,7 +120,7 @@
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">Projects</h3>
+            <h3 class="content-header-title">Edit Cashflow Data</h3>
           </div>
           <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
@@ -94,62 +128,101 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.php">Home</a>
                   </li>
-                  <li class="breadcrumb-item active">Projects
+                  <li class="breadcrumb-item active">Edit Cashflow
                   </li>
                 </ol>
               </div>
             </div>
           </div>
         </div>
-        <div class="content-body">
-<!-- Table head options start -->
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-header">
-				<h4 class="card-title">Projects<a href="addproj.php" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Project</a></h4>
-				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-				<div class="heading-elements">
-					<ul class="list-inline mb-0">
-						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-						<li><a data-action="close"><i class="ft-x"></i></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="card-content collapse show">
-				
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Project Name</th>
-								<th scope="col">Project Description</th>
-								<th scope="col">Project Price</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php  foreach ($selectedProjects as $project) {
-            echo "<tr>";
-            echo "<td>{$project->projectID}</td>";
-            echo "<td>{$project->projectName}</td>";
-            echo "<td>{$project->projectDescription}</td>";
-            echo "<td>{$project->projectPrice}</td>";
-            echo '<td><a href="editproj.php?pid='.$project->projectID.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
-            echo "</tr>";
-        } ?>
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Table head options end -->
+        <div class="content-body"><!-- Basic Inputs start -->
+<section class="basic-inputs">
+  <div class="row match-height">
+      <div class="col-xl-12 col-lg-6 col-md-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Edit Cashflow by ID</h4>
+              </div>
+              <div class="card-block">
+                  <div class="card-body">
+                      <form method="post">
+                     
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">ID</label>
+      <input required type="text" value="<?php echo(rand(100000009,1000000009)) ?>" name="chid" readonly class="form-control"  id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Income ID</label>
+      <input required type="text" name="chiid" readonly class="form-control" id="inputPassword4"  placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Description</label>
+    <input required type="text" name="chdesc" class="form-control" id="inputAddress"   placeholder="Full Name">
+  </div>
+ 
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Investment</label>
+      <input required type="text"  name="chinv" class="form-control"  id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Cash Flow Type</label>
+      <select  name="chtype" class="form-control"  aria-label="Default select example">
+  <option value="Operating" >Operating</option>
+  <option value="Investing" >Investing</option>
+  <option value="Financing" >Financing</option>
+</select>
+   
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="inputAddress">Tax Cetgory</label>
+    <input required type="text" name="chtax" class="form-control" id="inputAddress"   placeholder="Full Name">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Category</label>
+      <input required type="text" name="chcat"  class="form-control"  id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Notes</label>
+      <input required type="text"  name="chnotes"  class="form-control" id="inputPassword4"  placeholder="email">
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Date Created</label>
+      <input required type="text" readonly name="chdate" class="form-control"  id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Financial ID</label>
+      <input required type="text"  name="chfid" readonly class="form-control" id="inputPassword4"  placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input required class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        I Confirm all the details are correct
+      </label>
+    </div>
+  </div>
+  <button type="submit" name="chupdate" class="btn btn-primary">Sign in</button>
+
+
+</form>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+</section>
+<!-- Basic Inputs end -->
 
         </div>
       </div>
@@ -171,6 +244,7 @@
     <script src="theme-assets/js/core/app-lite.js" type="text/javascript"></script>
     <!-- END CHAMELEON  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
+    <script src="theme-assets/vendors/js/forms/tags/form-field.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
   </body>
 </html>

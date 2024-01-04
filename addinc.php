@@ -7,7 +7,38 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <?php  include("./title.php");?>
+    <?php  include("./title.php");
+    
+
+if(isset($_POST['incupdate'])){
+
+
+// Example data for the update
+$is_idToUpdate = $_POST['incid'];  // Replace with the specific is_id you want to update
+$newRevenue = $_POST['increvenue'];
+$newCostOfGoodsSold = $_POST['inccogs'];
+$newOperatingExpenses = $_POST['incoex'];
+$newOtherExpenses = $_POST['incother'];
+$newFiID = $_POST['incfid'];
+
+// SQL update query
+$sql = "UPDATE income_statement 
+        SET revenue = $newRevenue, 
+            cost_of_goods_sold = $newCostOfGoodsSold, 
+            operating_expenses = $newOperatingExpenses, 
+            other_expenses = $newOtherExpenses, 
+            fi_id = '$newFiID'
+        WHERE is_id = $is_idToUpdate";
+
+if ($conn->query($sql) === TRUE) {
+    echo "<script>alert('Record updated successfully');window.location.replace('incstatement.php');</script>";
+  } else {
+    echo "<script>alert('Error updating record: " . $conn->error."')</script>";
+  }
+}
+
+    
+    ?>
     <link rel="apple-touch-icon" href="theme-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="theme-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
@@ -41,7 +72,7 @@
                     <form>
                       <div class="input-group search-box">
                         <div class="position-relative has-icon-right full-width">
-                          <input class="form-control" id="search" type="text" placeholder="Search here...">
+                          <input required class="form-control" id="search" type="text" placeholder="Search here...">
                           <div class="form-control-position navbar-search-close"><i class="ft-x">   </i></div>
                         </div>
                       </div>
@@ -79,6 +110,7 @@
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
+
     <?php include("./side.php"); ?>
 
     <div class="app-content content">
@@ -86,7 +118,7 @@
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
           <div class="content-header-left col-md-4 col-12 mb-2">
-            <h3 class="content-header-title">Projects</h3>
+            <h3 class="content-header-title">Edit Income Statement Data</h3>
           </div>
           <div class="content-header-right col-md-8 col-12">
             <div class="breadcrumbs-top float-md-right">
@@ -94,62 +126,73 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.php">Home</a>
                   </li>
-                  <li class="breadcrumb-item active">Projects
+                  <li class="breadcrumb-item active">Edit Income Statement
                   </li>
                 </ol>
               </div>
             </div>
           </div>
         </div>
-        <div class="content-body">
-<!-- Table head options start -->
-<div class="row">
-	<div class="col-12">
-		<div class="card">
-			<div class="card-header">
-				<h4 class="card-title">Projects<a href="addproj.php" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px; margin: 5px;">+ Add Project</a></h4>
-				<a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-				<div class="heading-elements">
-					<ul class="list-inline mb-0">
-						<li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-						<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-						<li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-						<li><a data-action="close"><i class="ft-x"></i></a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="card-content collapse show">
-				
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Project Name</th>
-								<th scope="col">Project Description</th>
-								<th scope="col">Project Price</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php  foreach ($selectedProjects as $project) {
-            echo "<tr>";
-            echo "<td>{$project->projectID}</td>";
-            echo "<td>{$project->projectName}</td>";
-            echo "<td>{$project->projectDescription}</td>";
-            echo "<td>{$project->projectPrice}</td>";
-            echo '<td><a href="editproj.php?pid='.$project->projectID.'" style="background-color: green; color: #ffffff; padding: 7px; border-radius: 5px;">Edit</a></td>';
-            echo "</tr>";
-        } ?>
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Table head options end -->
+        <div class="content-body"><!-- Basic Inputs start -->
+<section class="basic-inputs">
+  <div class="row match-height">
+      <div class="col-xl-12 col-lg-6 col-md-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Edit Income Statement by ID</h4>
+              </div>
+              <div class="card-block">
+                  <div class="card-body">
+                      <form method="post">
+                  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Income Statement ID</label>
+      <input required type="text"value="<?php echo(rand(100000009,1000000009)) ?>" name="incid" readonly class="form-control"  id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Financial ID</label>
+      <input required type="text" readonly name="incfid" class="form-control" id="inputPassword4" placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Revenue</label>
+    <input required type="text" name="increvenue" class="form-control" id="inputAddress"  placeholder="Full Name">
+  </div>
+ 
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Cost of Goods Sold</label>
+      <input required type="text"  name="inccogs" class="form-control" id="inputEmail4" placeholder="0">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Operating Expenses</label>
+      <input required type="text" name="incoex" class="form-control" id="inputPassword4"  placeholder="email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Other Expenses</label>
+    <input required type="text" name="incother" class="form-control" id="inputAddress"   placeholder="Full Name">
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input required class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        I Confirm all the details are correct
+      </label>
+    </div>
+  </div>
+  <button type="submit"  name="incupdate" class="btn btn-primary">Sign in</button>
+
+</form>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+  </div>
+</section>
+<!-- Basic Inputs end -->
 
         </div>
       </div>
@@ -171,6 +214,7 @@
     <script src="theme-assets/js/core/app-lite.js" type="text/javascript"></script>
     <!-- END CHAMELEON  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
+    <script src="theme-assets/vendors/js/forms/tags/form-field.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
   </body>
 </html>
