@@ -24,6 +24,10 @@
             </li>
           <li class=" nav-item"><a href="clients.php"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Clients</span></a>
           </li>
+          <li class=" nav-item"><a href="budgetplan.php"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Budegt Plan</span></a>
+          </li>
+          <li class=" nav-item"><a href="balance.php"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Balance Sheet</span></a>
+          </li>
         </ul>
       </div>
     </div>

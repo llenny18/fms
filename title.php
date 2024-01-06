@@ -349,4 +349,116 @@ function generateRandomString($length) {
 
 
 
+
+class BudgetPlanEntry
+{
+    public $budget_id;
+    public $category;
+    public $description;
+    public $amount;
+    public $planned_date;
+    public $actual_date;
+    public $recurring;
+    public $recurring_frequency;
+    public $expense_type;
+    public $payment_method;
+    public $status;
+    public $notes;
+    public $created_at;
+    public $updated_at;
+
+    public function __construct($row)
+    {
+        // Populate properties from the row
+        $this->budget_id = $row['budget_id'];
+        $this->category = $row['category'];
+        $this->description = $row['description'];
+        $this->amount = $row['amount'];
+        $this->planned_date = $row['planned_date'];
+        $this->actual_date = $row['actual_date'];
+        $this->recurring = $row['recurring'];
+        $this->recurring_frequency = $row['recurring_frequency'];
+        $this->expense_type = $row['expense_type'];
+        $this->payment_method = $row['payment_method'];
+        $this->status = $row['status'];
+        $this->notes = $row['notes'];
+        $this->created_at = $row['created_at'];
+        $this->updated_at = $row['updated_at'];
+    }
+}
+
+function maximizeNetIncomebud($conn)
+{
+    $entries = [];
+
+    // Fetch entries from the budget_plan table
+    $sql = "SELECT * FROM budget_plan ORDER BY planned_date";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $entries[] = new BudgetPlanEntry($row);
+        }
+    }
+
+    // Sort entries by amount (or net income) in descending order
+    usort($entries, function ($a, $b) {
+        return $b->amount <=> $a->amount;
+    });
+
+    return $entries;
+}
+
+// Example usage:
+$selectedEntriesbud = maximizeNetIncomebud($conn);
+
+
+class BalanceSheetEntry
+{
+    public $entry_id;
+    public $account_name;
+    public $account_type;
+    public $amount;
+    public $entry_date;
+    public $currency;
+    public $description;
+    public $created_at;
+    public $updated_at;
+
+    public function __construct($row)
+    {
+        // Populate properties from the row
+        $this->entry_id = $row['entry_id'];
+        $this->account_name = $row['account_name'];
+        $this->account_type = $row['account_type'];
+        $this->amount = $row['amount'];
+        $this->entry_date = $row['entry_date'];
+        $this->currency = $row['currency'];
+        $this->description = $row['description'];
+        $this->created_at = $row['created_at'];
+        $this->updated_at = $row['updated_at'];
+    }
+}
+
+function displayBalanceSheetEntries($conn)
+{
+    $entries = [];
+
+    // Fetch entries from the balance_sheet table
+    $sql = "SELECT * FROM balance_sheet ORDER BY entry_date";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $entries[] = new BalanceSheetEntry($row);
+        }
+    }
+
+    return $entries;
+}
+
+// Example usage:
+$balanceSheetEntries = displayBalanceSheetEntries($conn);
+
+
 ?>
